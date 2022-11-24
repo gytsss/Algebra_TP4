@@ -5,7 +5,7 @@
 
 #include <raylib.h>
 
-const uint8_t map[10][10] = {
+const int map[10][10] = {
 	{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 	{ 1, 0, 0, 0, 1, 0, 0, 0, 0, 1 },
 	{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
@@ -18,12 +18,12 @@ const uint8_t map[10][10] = {
 	{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
 };
 
-#define TILE_SIZE           40
-#define DEFAULT_RAY_LENGTH 250
+const int TileSize = 40;
 
-bool IsHit(const uint8_t map[10][10], Vector2 point, float size) {
-	for (uint8_t row = 0; row < 10; row++) {
-		for (uint8_t col = 0; col < 10; col++) {
+
+bool IsHit(const int map[10][10], Vector2 point, float size) {
+	for (int row = 0; row < 10; row++) {
+		for (int col = 0; col < 10; col++) {
 			if (col < point.x + size &&
 				col + size > point.x &&
 				row < point.y + size &&
@@ -51,7 +51,7 @@ void StepRay(const Vector2 position, Vector2 forward, const int stepCount, const
 	pHit->x = end.x;
 	pHit->y = end.y;
 
-	DrawLine(start.x * TILE_SIZE + TILE_SIZE / 2, start.y * TILE_SIZE + TILE_SIZE / 2, end.x * TILE_SIZE + TILE_SIZE / 2, end.y * TILE_SIZE + TILE_SIZE / 2, GRAY);
+	DrawLine(start.x * TileSize + TileSize / 2, start.y * TileSize + TileSize / 2, end.x * TileSize + TileSize / 2, end.y * TileSize + TileSize / 2, GRAY);
 
 	if (!IsHit(map, end, 0.5) && *incr < stepCount) {
 		*incr += 1;
@@ -80,21 +80,21 @@ void Render3DMap(Vector2 cameraPosition, float cameraRotation, int lineThickness
 	}
 }
 
-void Render2DMap(const uint8_t map[10][10]) {
-	for (uint8_t row = 0; row < 10; row++) {
-		for (uint8_t col = 0; col < 10; col++) {
+void Render2DMap(const int map[10][10]) {
+	for (int row = 0; row < 10; row++) {
+		for (int col = 0; col < 10; col++) {
 			Color color = BLACK;
 			if (map[row][col] == 1) {
 				color = BROWN;
 			}
 
-			DrawRectangle(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE, color);
+			DrawRectangle(col * TileSize, row * TileSize, TileSize, TileSize, color);
 		}
 	}
 }
 
 void Render2DPlayer(const Vector2 position) {
-	DrawCircle(position.x * TILE_SIZE + TILE_SIZE / 2, position.y * TILE_SIZE + TILE_SIZE / 2, 6, ORANGE);
+	DrawCircle(position.x * TileSize + TileSize / 2, position.y * TileSize + TileSize / 2, 6, ORANGE);
 }
 
 Vector2 Update2DPlayer(Vector2* position, int* rotation) {
