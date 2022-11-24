@@ -22,12 +22,12 @@ const int TileSize = 40;
 
 
 bool IsHit(const int map[10][10], Vector2 point, float size) {
-	for (int row = 0; row < 10; row++) {
-		for (int col = 0; col < 10; col++) {
-			if (col < point.x + size &&
-				col + size > point.x &&
-				row < point.y + size &&
-				row + size > point.y && map[row][col] == 1) {
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (j < point.x + size &&
+				j + size > point.x &&
+				i < point.y + size &&
+				i + size > point.y && map[i][j] == 1) {
 				return true;
 			}
 		}
@@ -81,14 +81,14 @@ void Render3DMap(Vector2 cameraPosition, float cameraRotation, int lineThickness
 }
 
 void Render2DMap(const int map[10][10]) {
-	for (int row = 0; row < 10; row++) {
-		for (int col = 0; col < 10; col++) {
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
 			Color color = BLACK;
-			if (map[row][col] == 1) {
+			if (map[i][j] == 1) {
 				color = BROWN;
 			}
 
-			DrawRectangle(col * TileSize, row * TileSize, TileSize, TileSize, color);
+			DrawRectangle(j * TileSize, i * TileSize, TileSize, TileSize, color);
 		}
 	}
 }
